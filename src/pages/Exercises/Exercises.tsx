@@ -6,11 +6,13 @@ import { challenges } from "../../challenges/challenges";
 import { useSolutionsQuery } from "../../indexed-db/db";
 import NO_EXERCISES from "../../assets/no_exercises.svg";
 import { ResetProgressModal } from "./components/ResetProgressModal/ResetProgressModal";
+import { IntroModal } from "./components/IntroModal/IntroModal";
 
 export const Exercises: FC = () => {
   const [level, setLevel] = useState("all");
   const [hideCompleted, setHideCompleted] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [showIntroModal, setShowIntroModal] = useState(false);
   const { solutions, isLoading } = useSolutionsQuery();
 
   const numberOfCompleted = solutions?.length || 0;
@@ -70,6 +72,13 @@ export const Exercises: FC = () => {
                 completed={numberOfCompleted}
                 todo={totalNumber - numberOfCompleted}
               />
+            </Card.Body>
+          </Card>
+          <Card className="mb-3">
+            <Card.Body>
+              <Button onClick={() => setShowIntroModal(true)} className="w-100">
+                Watch Edabit Intro
+              </Button>
             </Card.Body>
           </Card>
         </Col>
@@ -137,6 +146,10 @@ export const Exercises: FC = () => {
       <ResetProgressModal
         showModal={showModal}
         onHide={() => setShowModal(false)}
+      />
+      <IntroModal
+        show={showIntroModal}
+        onClose={() => setShowIntroModal(false)}
       />
     </>
   );

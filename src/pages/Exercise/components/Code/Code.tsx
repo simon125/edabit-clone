@@ -128,8 +128,10 @@ export const Code: FC = () => {
     setConsoleOutput([]);
 
     try {
-      let testResult = false;
+      const testResults: boolean[] = [];
       challenge?.tests.forEach((test) => {
+        let testResult = false;
+
         const { input, output, outputType } = test;
         const solution = getFunctionBasedOnCode(code, input);
         const result = solution();
@@ -141,6 +143,8 @@ export const Code: FC = () => {
         } else {
           testResult = isEqual(result, output);
         }
+
+        testResults.push(testResult);
 
         setConsoleOutput((prev) => [
           ...prev,
@@ -155,16 +159,17 @@ export const Code: FC = () => {
                 )}; Current result: ${JSON.stringify(result)}`,
           },
         ]);
-
-        setAlertMessage({
-          message: testResult
-            ? "Udało się! Twoja funkcja działa zgodnie z oczekiwaniem!"
-            : "Twoja funkcja nie działa zgodnie z oczekiwaniami sprawdź wynik w konsoli poniżej",
-          variant: testResult ? "success" : "danger",
-        });
       });
 
-      setPassedChecks(testResult);
+      const finalResult = testResults.every(Boolean);
+
+      setAlertMessage({
+        message: finalResult
+          ? "Udało się! Twoja funkcja działa zgodnie z oczekiwaniem!"
+          : "Twoja funkcja nie działa zgodnie z oczekiwaniami sprawdź wynik w konsoli poniżej",
+        variant: finalResult ? "success" : "danger",
+      });
+      setPassedChecks(finalResult);
     } catch (error) {
       setPassedChecks(false);
       setAlertMessage({

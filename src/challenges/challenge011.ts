@@ -10,7 +10,7 @@ export const challenge011: Challenge = {
   - hasło oraz powtórzone hasło muszą być takie same w przeciwnym wypadku zwróć następującą wiadomość (string)
   "Password and repeated password don't match"
   - hasło powinno zawierać conajmniej 6 znaków w przeciwnym razie zwróć następującą wiadomość (string)
-  "Password is to short"
+  "Password is too short"
   - hasło powinno zawierać conajmniej jeden ze znaków specjalnych: ! @ # $ % & w przeciwnym razie zwróć następującą wiadomość (string)
   "Password does not contain special character"
   - jeżeli hasło spełnia wymienione wcześniej wymogi zwróć następującą wiadomość
@@ -39,7 +39,7 @@ export const challenge011: Challenge = {
 
   const result = validatePassword("test", "test");
 
-  console.log(result); // "Password is to short"
+  console.log(result); // "Password is too short"
   // password jest słowem który ma tylko 4 litery - wymagana liczba znaków to 6 
   ~~~
 
@@ -58,7 +58,7 @@ export const challenge011: Challenge = {
     }
   
     if (password.length < 6) {
-      return "Password is to short";
+      return "Password is too short";
     }
   
     const specialChars = ["!", "@", "#", "$", "%", "&"];
@@ -79,7 +79,7 @@ export const challenge011: Challenge = {
   tests: [
     {
       input: "'haslo', 'haslo'",
-      output: "Password is to short",
+      output: "Password is too short",
       outputType: "string",
     },
     {
